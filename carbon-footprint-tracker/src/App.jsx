@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
@@ -29,16 +29,19 @@ function App() {
           ) : (
             <>
               <Link to="/dashboard" className="text-white">Dashboard</Link>
-              <Profile onLogout={handleLogout} />
+              <Profile onLogout={handleLogout} /> {/* Profile component to trigger logout */}
             </>
           )}
         </div>
       </nav>
 
       <Routes>
+        {/* Public Routes */}
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+
+        {/* Private Route for Dashboard */}
+        <Route path="/dashboard" element={isLoggedIn ? <Dashboard /> : <Login onLogin={handleLogin} />} />
       </Routes>
     </Router>
   );
