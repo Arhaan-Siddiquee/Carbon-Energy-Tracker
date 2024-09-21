@@ -1,16 +1,47 @@
-import React from 'react';
-import Header from './components/Header';
-import CarbonForm from './components/CarbonForm';
-import Footer from './components/Footer';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
+import SignUp from './components/SignUp';
+import Login from './components/Login';
+import Dashboard from './components/Dashboard';
+import Profile from './components/Profile'; // Add Profile component for the dashboard
 
-const App = () => {
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State for login status
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
   return (
-    <div>
-      <Header />
-      <CarbonForm />
-      <Footer />
-    </div>
+    <Router>
+      <nav className="bg-black p-4 flex justify-between items-center">
+        <h1 className="text-white text-xl">Carbon Tracker</h1>
+        <div className="flex space-x-4">
+          {!isLoggedIn ? (
+            <>
+              <Link to="/signup" className="text-white">Sign Up</Link>
+              <Link to="/login" className="text-white">Login</Link>
+            </>
+          ) : (
+            <>
+              <Link to="/dashboard" className="text-white">Dashboard</Link>
+              <Profile onLogout={handleLogout} />
+            </>
+          )}
+        </div>
+      </nav>
+
+      <Routes>
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login onLogin={handleLogin} />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </Router>
   );
-};
+}
 
 export default App;
