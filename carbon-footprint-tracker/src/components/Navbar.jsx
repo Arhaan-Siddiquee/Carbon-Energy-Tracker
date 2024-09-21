@@ -8,7 +8,7 @@ const Navbar = ({ onLogout, isLoggedIn }) => {
       <div>
         <Link to="/" className="mr-4 hover:underline">Home</Link>
         <Link to="/about" className="mr-4 hover:underline">About</Link>
-        <Link to="/services" className="mr-4 hover:underline">Services</Link>
+        <Link to="/services" className="mr-4 hover:underline">Services</Link>//fhwefbeb
         <Link to="/contact" className="mr-4 hover:underline">Contact</Link>
         {isLoggedIn ? (
           <Link to="/dashboard" className="mr-4 hover:underline">Profile</Link>
